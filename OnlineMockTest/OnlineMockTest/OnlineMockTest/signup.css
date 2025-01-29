@@ -1,0 +1,117 @@
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    background-color: #121212;
+    color: #ffffff;
+}
+
+.main {
+    width: 350px;
+    height: 480px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #1e1e1e;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#chk {
+    display: none;
+}
+
+.signup {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+button {
+    padding: 15px 0;
+    text-align: center;
+    margin: 50px auto;
+    border-radius: 25px;
+    font-weight: bold;
+    border: 2px solid #fff;
+    background: transparent;
+    color: #ffffff;
+    cursor: pointer;
+    height: 50px;
+    width: 200px;
+    transition: background 0.3s, transform 0.3s;
+}
+
+button:hover {
+    background: #555;
+    transform: scale(1.05);
+}
+
+form {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    padding: 30px;
+    box-sizing: border-box;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+label {
+    color: #ffffff;
+    font-size: 35px;
+    margin: auto;
+    font-weight: bold;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    box-sizing: border-box;
+    font-size: 20px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #333;
+    color: #ffffff;
+}
+
+.banner {
+    width: 100%;
+    height: 100vh;
+    background-image: linear-gradient(rgba(0,0,0,0.75),rgba(0,0,0,0.75)), url('IMG_2069.JPG');
+    background-size: cover;
+    background-position: center;
+    position: absolute;
+    color: white;
+}
+
+.logo {
+    position: absolute;
+    width: 200px;
+    cursor: pointer;
+    border-radius: 100%;
+    margin: auto;
+}
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #013e67;
+    color: white;
+    text-align: center;
+    font-family: 'Times New Roman', Times, serif;
+}

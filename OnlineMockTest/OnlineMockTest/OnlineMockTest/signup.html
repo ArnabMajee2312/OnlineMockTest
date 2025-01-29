@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup</title>
+    <link rel="stylesheet" type="text/css" href="signup.css">
+    <script>
+        // JavaScript to show success message and redirect
+        function handleSubmit() {
+            alert("You have successfully signed up!"); // Show success message
+            window.location.href = "index.html"; // Redirect to index page
+            return false; // Prevent form submission to the server
+        }
+    </script>
+</head>
+
+<body>
+    <div class="banner">
+        <h1>ONLINE MOCK TEST</h1>
+    </div>
+    
+    <div class="main">
+        <div class="signup">
+            <!-- On form submit, call the handleSubmit() function -->
+            <form name="submit-to-google-sheet" onsubmit="return handleSubmit()">
+                <label for="chk" aria-hidden="true"><u>Sign Up</u></label>
+                <input type="text" name="Username" placeholder="Username" required>
+                <input type="email" name="Email" placeholder="Email" required>
+                <input type="password" name="Password" placeholder="Password" required>
+                <button type="submit">Sign Up</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

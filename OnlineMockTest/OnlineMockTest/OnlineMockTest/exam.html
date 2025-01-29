@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Mock Test</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+    <nav class="bg-black text-white p-4">
+      <h1 class="text-white">Online Mock Test</h1>
+    </nav>
+    
+    <div class="container mx-auto mt-6 p-4">
+        <div class="mb-4">
+            <label class="block text-lg font-medium">Select Category:</label>
+            <select id="category" class="p-2 border rounded w-full">
+                <option value="reasoning">Reasoning</option>
+                <option value="aptitude">Aptitude</option>
+                <option value="gk">General Knowledge</option>
+                <option value="math">Math</option>
+            </select>
+        </div>
+        
+        <div id="quiz-container" class="hidden p-6 bg-white shadow-md rounded">
+            <div id="question" class="text-lg font-bold"></div>
+            <div id="options" class="mt-4"></div>
+            <div class="mt-4">Time Left: <span id="timer" class="font-bold">30</span> seconds</div>
+            <button id="next-btn" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded hidden">Next</button>
+        </div>
+
+        <div id="result-section" class="hidden p-6 bg-white shadow-md rounded mt-4">
+            <h2 class="text-lg font-bold">Test Completed!</h2>
+            <p id="score"></p>
+        </div>
+    </div>
+    
+    <script>
+      const quizData = {
+        reasoning: [
+          { question: "What is the next number in the series: 2, 4, 8, 16, ?", options: ["32", "24", "10", "20"], answer: "32" },
+          { question: "How far apart will two cars be after 2 hours if they drive in opposite directions at 60 km/h and 80 km/h?", options: ["140 km", "120 km", "100 km", "150 km"], answer: "140 km" },
+          { question: "Which of the following is not a prime number?", options: ["2", "3", "4", "5"], answer: "4" },
+          { question: "What is the next number in the series: 1, 1, 2, 3, 5, 8, ?", options: ["13", "10", "12", "15"], answer: "13" },
+          { question: "If A is B's sister, B is C's brother, and C is D's sister, how is D related to A?", options: ["Brother", "Sister", "Cousin", "Uncle"], answer: "Brother" },
+          { question: "What is the next number in the series: 5, 10, 20, 40, ?", options: ["80", "60", "50", "70"], answer: "80" },
+          { question: "Which of the following is an odd number?", options: ["2", "4", "6", "7"], answer: "7" },
+          { question: "What is the next number in the series: 3, 6, 9, 12, ?", options: ["15", "18", "21", "24"], answer: "15" },
+          { question: "If all the letters in the word 'EXAM' are rearranged, which of the following is a meaningful word?", options: ["AXEM", "MAXE", "MAEX", "MEXA"], answer: "MAXE" },
+          { question: "What is the next number in the series: 7, 14, 21, 28, ?", options: ["35", "42", "49", "56"], answer: "35" }
+        ],
+        aptitude: [
+          { question: "What is 25% of 200?", options: ["50", "75", "40", "60"], answer: "50" },
+          { question: "If a car travels 60 km in 1 hour, how far will it travel in 5 hours?", options: ["200 km", "250 km", "300 km", "350 km"], answer: "300 km" },
+          { question: "What is the value of π?", options: ["3.14", "3.15", "3.16", "3.17"], answer: "3.14" },
+          { question: "What is the square root of 144?", options: ["10", "11", "12", "13"], answer: "12" },
+          { question: "What is 15% of 300?", options: ["30", "45", "60", "75"], answer: "45" },
+          { question: "If a train travels 80 km in 1 hour, how far will it travel in 3 hours?", options: ["200 km", "220 km", "240 km", "260 km"], answer: "240 km" },
+          { question: "What is the value of 2^3?", options: ["6", "7", "8", "9"], answer: "8" },
+          { question: "What is the value of 5!", options: ["120", "130", "140", "150"], answer: "120" },
+          { question: "What is the value of 7 + 8?", options: ["14", "15", "16", "17"], answer: "15" },
+          { question: "What is the value of 9 * 9?", options: ["80", "81", "82", "83"], answer: "81" }
+        ],
+        gk: [
+          { question: "Who is the President of the United States?", options: ["Joe Biden", "Barack Obama", "Donald Trump", "George Bush"], answer: "Joe Biden" },
+          { question: "What is the capital of France?", options: ["Paris", "London", "Berlin", "Rome"], answer: "Paris" },
+          { question: "What is the largest ocean on Earth?", options: ["Atlantic Ocean", "Indian Ocean", "Arctic Ocean", "Pacific Ocean"], answer: "Pacific Ocean" },
+          { question: "Who wrote 'Hamlet'?", options: ["William Shakespeare", "Charles Dickens", "Mark Twain", "Jane Austen"], answer: "William Shakespeare" },
+          { question: "What is the smallest country in the world?", options: ["Monaco", "Vatican City", "San Marino", "Liechtenstein"], answer: "Vatican City" },
+          { question: "Who painted the Mona Lisa?", options: ["Leonardo da Vinci", "Vincent van Gogh", "Pablo Picasso", "Claude Monet"], answer: "Leonardo da Vinci" },
+          { question: "What is the longest river in the world?", options: ["Amazon River", "Nile River", "Yangtze River", "Mississippi River"], answer: "Nile River" },
+          { question: "Who discovered penicillin?", options: ["Alexander Fleming", "Marie Curie", "Isaac Newton", "Albert Einstein"], answer: "Alexander Fleming" },
+          { question: "What is the capital of Japan?", options: ["Tokyo", "Beijing", "Seoul", "Bangkok"], answer: "Tokyo" },
+          { question: "Who was the first man to walk on the moon?", options: ["Neil Armstrong", "Buzz Aldrin", "Yuri Gagarin", "Michael Collins"], answer: "Neil Armstrong" }
+        ],
+        math: [
+          { question: "What is the square root of 64?", options: ["8", "6", "7", "10"], answer: "8" },
+          { question: "What is 9 multiplied by 6?", options: ["54", "63", "72", "80"], answer: "54" },
+          { question: "What is the value of π?", options: ["3.14", "3.15", "3.16", "3.17"], answer: "3.14" },
+          { question: "What is the square root of 144?", options: ["10", "11", "12", "13"], answer: "12" },
+          { question: "What is 15% of 300?", options: ["30", "45", "60", "75"], answer: "45" },
+          { question: "If a train travels 80 km in 1 hour, how far will it travel in 3 hours?", options: ["200 km", "220 km", "240 km", "260 km"], answer: "240 km" },
+          { question: "What is the value of 2^3?", options: ["6", "7", "8", "9"], answer: "8" },
+          { question: "What is the value of 5!", options: ["120", "130", "140", "150"], answer: "120" },
+          { question: "What is the value of 7 + 8?", options: ["14", "15", "16", "17"], answer: "15" },
+          { question: "What is the value of 9 * 9?", options: ["80", "81", "82", "83"], answer: "81" }
+        ]
+      };
+      
+      let timer;
+      let timeLeft = 30;
+      let currentIndex = 0;
+      let score = 0;
+      let selectedCategory = "reasoning";
+      
+      document.getElementById("category").addEventListener("change", function() {
+        selectedCategory = this.value;
+        document.getElementById("quiz-container").classList.remove("hidden");
+        startQuiz();
+      });
+      
+      function startQuiz() {
+        currentIndex = 0;
+        score = 0;
+        timeLeft = 30;
+        clearInterval(timer);
+        timer = setInterval(updateTimer, 1000);
+        loadQuestion();
+      }
+      
+      function loadQuestion() {
+        if (currentIndex >= quizData[selectedCategory].length) {
+          clearInterval(timer);
+          document.getElementById("quiz-container").classList.add("hidden");
+          document.getElementById("result-section").classList.remove("hidden");
+          document.getElementById("score").textContent = `Your score: ${score}`;
+          return;
+        }
+        
+        const questionObj = quizData[selectedCategory][currentIndex];
+        document.getElementById("question").textContent = questionObj.question;
+        document.getElementById("options").innerHTML = questionObj.options.map(option => 
+          `<button class='option-btn bg-gray-200 px-4 py-2 rounded m-2' onclick="checkAnswer('${option}')">${option}</button>`
+        ).join(" ");
+        
+        document.getElementById("next-btn").classList.add("hidden");
+      }
+      
+      function checkAnswer(selected) {
+        const correctAnswer = quizData[selectedCategory][currentIndex].answer;
+        if (selected === correctAnswer) score++;
+        currentIndex++;
+        document.getElementById("next-btn").classList.remove("hidden");
+      }
+      
+      document.getElementById("next-btn").addEventListener("click", loadQuestion);
+      
+      function updateTimer() {
+        if (timeLeft <= 0) {
+          clearInterval(timer);
+          document.getElementById("quiz-container").classList.add("hidden");
+          document.getElementById("result-section").classList.remove("hidden");
+          document.getElementById("score").textContent = `Time's up! Your score: ${score}`;
+          return;
+        }
+        document.getElementById("timer").textContent = --timeLeft;
+      }
+    </script>
+</body>
+</html>

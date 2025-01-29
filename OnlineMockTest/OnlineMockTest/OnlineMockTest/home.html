@@ -1,0 +1,221 @@
+<?php
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Online Mock Test</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+            color: #000000;
+        }
+
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background-color: #000000;
+            color: #fff;
+            padding: 15px;
+            text-align: center;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+        
+        nav ul li {
+            margin-left: 15px;
+        }
+        
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .title {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .description {
+            font-size: 1.2rem;
+        }
+
+        section {
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        section h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        ul li {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        .social-links a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: #333;
+            font-size: 1.2rem;
+        }
+
+        .social-links a:hover {
+            color: #4CAF50;
+        }
+
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        footer p {
+            font-size: 1rem;
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        #intro, #benefits, #contact {
+            animation: fadeIn 1s ease-in;
+        }
+
+        /* Scroll Animation */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header>
+        <div class="header-container">
+            <h1>Online Mock Test</h1>
+            <nav>
+                <ul>
+                    <li><a href="home.html" id="homeLink">Home</a></li>
+                    <li><a href="signup.html" id="registerLink">Register</a></li>
+                    <li><a href="login.html" id="loginLink">Login</a></li>
+                    <li><a href="#" id="accountLink" style="display: none;">My Account</a></li>
+                    <li><a href="exam.html">Start Exam</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Introduction Section -->
+    <section class="intro" id="intro">
+        <div class="container">
+            <h2>Introduction</h2>
+            <p>Our online mock tests are designed to simulate the real exam experience. They help you test your knowledge, improve your speed, and boost your confidence.</p>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="benefits" id="benefits">
+        <div class="container">
+            <h2>Benefits</h2>
+            <ul>
+                <li>Real-time Exam Simulation</li>
+                <li>Track Your Progress</li>
+                <li>Improve Time Management</li>
+                <li>Access Anytime, Anywhere</li>
+                <li>Instant Feedback and Results</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2>Get in Touch</h2>
+            <p>If you have any questions, feel free to reach out to us:</p>
+            <div class="social-links">
+                <a href="https://www.facebook.com" target="_blank">Facebook</a>
+                <a href="https://www.twitter.com" target="_blank">Twitter</a>
+                <a href="https://www.linkedin.com" target="_blank">LinkedIn</a>
+                <a href="mailto:example@example.com">Email</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Online Mock Test. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth Scroll on clicking internal links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+
+    <?php
+    // PHP code to handle user authentication and session management
+    session_start();
+
+    // Check if user is logged in
+    if (isset($_SESSION['user_id'])) {
+        echo '<script>
+            document.getElementById("accountLink").style.display = "block";
+            document.getElementById("loginLink").style.display = "none";
+            document.getElementById("registerLink").style.display = "none";
+        </script>';
+    } else {
+        echo '<script>
+            document.getElementById("accountLink").style.display = "none";
+            document.getElementById("loginLink").style.display = "block";
+            document.getElementById("registerLink").style.display = "block";
+        </script>';
+    }
+    ?>
+</body>
+</html>
+?>
